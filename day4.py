@@ -81,7 +81,7 @@ class PassportData:
                     return False
                 if self.ecl not in ('amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'):
                     return False
-                if not re.match(r'\d{9}', self.pid):
+                if not re.match(r'^\d{9}$', self.pid):
                     return False
                 return True
             except ValueError:
