@@ -21,28 +21,17 @@ print(next_dep[earliest_bus] * (earliest_bus - earliest_time))
 
 
 # Part 2
-bus_lines = {}
-i = 0
-for v in lines[1].split(','):
-    if v != 'x':
-        bus_lines[int(v)] = i
-    i += 1
-init_val = list(bus_lines.keys())[0]
-max_val = max(bus_lines.keys())
-max_index = bus_lines[max_val]
-blk = list(bus_lines.keys())
-blk.sort(reverse=True)
-j = 1
-is_found = False
-while not is_found:
-    is_the_one = True
-    for k in blk:
-        if ((j * max_val) + bus_lines[k] - max_index) % k != 0:
-            is_the_one = False
-            break
-    if is_the_one:
-        is_found = True
-        print(init_val, j, init_val * j)
-        break
-    j += 1
+bus_lines = [[i, int(val)] for i, val in enumerate(lines[1].split(',')) if val != "x"]
+cProd = 1
+c = 0
+for k in range(1, len(bus_lines)):
+    a = 0
+    cProd *= bus_lines[k-1][1]
+    reste = c % bus_lines[k][1]
+    while reste != (bus_lines[k][1] - bus_lines[k][0]) % bus_lines[k][1]:
+        a += 1
+        reste = (reste + cProd) % bus_lines[k][1]
+    c += a*cProd
+print(c)
+
 
